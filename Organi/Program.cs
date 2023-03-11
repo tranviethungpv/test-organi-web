@@ -1,7 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using Organi.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true)
+    .AddEnvironmentVariables();
+
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING") ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<QlbanVaLiContext>(options =>
+    options.UseSqlServer(connectionString));
+
 builder.Services.AddControllersWithViews();
+
+// Add authorization services
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -17,6 +31,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+// Add authentication middleware before authorization middleware
+app.UseAuthentication();
 
 app.UseAuthorization();
 
