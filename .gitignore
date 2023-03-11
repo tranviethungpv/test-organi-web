@@ -15,16 +15,16 @@
 *.userprefs
 
 # Build results
-test-organi-web/[Dd]ebug/
-test-organi-web/[Dd]ebugPublic/
-test-organi-web/[Rr]elease/
-test-organi-web/[Rr]eleases/
-test-organi-web/x64/
-test-organi-web/x86/
-test-organi-web/bld/
-test-organi-web/[Bb]in/
-test-organi-web/[Oo]bj/
-test-organi-web/[Ll]og/
+Organi/[Dd]ebug/
+Organi/[Dd]ebugPublic/
+Organi/[Rr]elease/
+Organi/[Rr]eleases/
+Organi/x64/
+Organi/x86/
+Organi/bld/
+Organi/[Bb]in/
+Organi/[Oo]bj/
+Organi/[Ll]og/
 
 # Visual Studio 2015 cache/options directory
 .vs/
