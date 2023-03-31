@@ -1,0 +1,73 @@
+﻿@using Organi.Models;
+@using X.PagedList.Mvc.Core
+@model X.PagedList.IPagedList<TDanhMucSp>
+
+@{
+    ViewData["Title"] = "DanhMucSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout_Admin.cshtml";
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<div class="content-wrapper">
+    <h1>Danh Mục Sản Phẩm</h1>
+
+    <p>
+        <a asp-action="ThemSanPham">Thêm mới</a>
+    </p>
+    <p>@TempData["Message"]</p>
+    <table class="table table-dark">
+        <thead>
+            <tr>
+                <th>
+                    Tên sản phẩm
+                </th>
+                <th>
+                    Cân nặng
+                </th>
+                <th>
+                    Độ nới
+                </th>
+                <th>
+                    Thời gian bảo hành
+                </th>
+                <th>
+                    Giá
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenSp)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CanNang)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DoNoi)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThoiGianBaoHanh)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GiaLonNhat)
+                    </td>
+                    <td>
+                        <a asp-action="SuaSanPham" asp-route-masp="@item.MaSp">Sửa</a> |
+                        <a href="@Url.Action("ChiTietSanPham", "Home", new { masanpham = @item.MaSp })">Chi tiết</a> |
+                        <a asp-action="XoaSanPham" asp-route-masp="@item.MaSp">Xoá</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="pagination justify-content-center">
+        @Html.PagedListPager(Model, page => Url.Action("DanhMucSanPham", new{page = page}), new
+        X.PagedList.Web.Common.PagedListRenderOptions(){
+        LiElementClasses = new List<String> {"page-item"},
+        PageClasses = new List<String> {"page-link"}
+        })
+    </div>
+</div>

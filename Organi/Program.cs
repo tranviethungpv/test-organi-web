@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Organi.Models;
+using Organi.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,9 +14,9 @@ builder.Services.AddDbContext<QlbanVaLiContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddControllersWithViews();
-
-// Add authorization services
+builder.Services.AddScoped<LoaiSpRepository>();
 builder.Services.AddAuthorization();
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -36,6 +37,7 @@ app.UseRouting();
 app.UseAuthentication();
 
 app.UseAuthorization();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "default",
